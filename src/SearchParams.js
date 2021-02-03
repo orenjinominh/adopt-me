@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import pet, { ANIMALS } from '@frontendmasters/pet';
 import useDropdown from './useDropdown';
+import Results from './Results';
 
 
 const SearchParams = () => {
@@ -9,7 +10,18 @@ const SearchParams = () => {
   const [breeds, setBreeds] = useState([]);
   const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
   const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
+  const [pets, setPets] = useState([]);
 
+  // calls API with location, breed, type, then sets Pets with animals or empty array 
+  async function requestPets() {
+    const { animals } = await pet.animals({
+      location,
+      breed,
+      type: animal
+    })
+
+    setPets(animals || []);
+  }
   // useEffect only runs after first render, and when animal changes and not every re-render
   // breeds is not used inside of useEffects and therefore not depended on
   useEffect(() => {
@@ -26,7 +38,10 @@ const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        requestPets();
+      }}>
         <label htmlFor="location">
           Location
           <input id="location" value={location} onChange={e => setLocation(e.target.value)} placeholder="location" />
@@ -35,6 +50,7 @@ const SearchParams = () => {
         <BreedDropdown/>
         <button>Submit</button>
       </form>
+      <Results pets={pets}/>
     </div>
   );
 }
