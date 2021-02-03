@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const useDropdown = (label, defaultState, options) => {
   const [state, setState] = useState(defaultState);
-  const id = `use-dropdown-${label.replace(' ', '').toLowerCase()}`
+  const id = `use-dropdown-${label.replace(" ", "").toLowerCase()}`
 
   const Dropdown = () => (
     <label htmlFor={id}>
@@ -20,6 +20,7 @@ const useDropdown = (label, defaultState, options) => {
     </label>
   );
 
+  // setState will get passed into useEffect on SearchParams component so that breed list updates with change of animal
   return [state, Dropdown, setState]; 
 }
 
