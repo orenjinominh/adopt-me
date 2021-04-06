@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from "@reach/router";
-import { css, keyframes} from "@emotion/core";
+import { css, keyframes} from "@emotion/react";
 import colors from './colors';
 
 const spin = keyframes`

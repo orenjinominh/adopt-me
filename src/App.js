@@ -4,7 +4,7 @@ import SearchParams from './SearchParams';
 import { Link, Router } from '@reach/router';
 import Details from './Details';
 import ThemeContext from './ThemeContext';
-import NavBar from './NavBar';
+// import NavBar from './NavBar';
 const App = () => {
   const themeHook = useState('darkblue');
 
@@ -13,7 +13,6 @@ const App = () => {
     <React.StrictMode>
       <ThemeContext.Provider value={themeHook}>
         <div>
-          <NavBar />
           <Router>
             <SearchParams path="/"/>
             <Details path="/details/:id"/>
@@ -26,4 +25,4 @@ const App = () => {
   )
 };
 
-render(<App/>, document.getElementById('root'));
+export default App;
